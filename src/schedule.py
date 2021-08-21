@@ -1,6 +1,6 @@
 #file that deals with the schedule
 
-from data import todays_courses,schedule
+from .data import todays_courses,schedule
 import time
 
 def get_schedule():                                             #gets schedule from the user for today

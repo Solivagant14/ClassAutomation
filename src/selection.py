@@ -1,8 +1,7 @@
 #all the fucntions used for command line selection
 
 from simple_term_menu import TerminalMenu
-from data import course_list
-from data import todays_courses
+from .data import course_list,todays_courses
 
 def get_semester_classes():
     

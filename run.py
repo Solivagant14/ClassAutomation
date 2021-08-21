@@ -1,16 +1,16 @@
 #the executable file
 
-from schedule import get_schedule
-from selection import get_todays_classes
+from src.schedule import get_schedule
+from src.selection import get_todays_classes
 
 get_todays_classes()                #gets todays classes
 get_schedule()                      #gets the schedule
 
-from driver import driver
-from data import course_list,schedule
-from course import Course
-from schedule import run_schedule
-from tools import login
+from src.driver import driver
+from src.data import course_list,schedule
+from src.course import Course
+from src.schedule import run_schedule
+from src.tools import login
 
 login()                             #logs in
 for each in schedule.copy():        #changes the key of schedule to be instance of the class Course

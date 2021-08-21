@@ -1,11 +1,11 @@
 #this file has the class which is the blue print for all the classes
 
-from tools import logedin
+from .tools import logedin
+from .driver import driver,wait
+from .data import CLASS_DURATION,LAB_DURATION
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 import time
-from driver import driver,wait
-from data import CLASS_DURATION,LAB_DURATION
 from selenium.common.exceptions import TimeoutException,NoSuchWindowException
 
 class Course:

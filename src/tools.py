@@ -1,10 +1,11 @@
 #some handy functions needed in the project
 
-from os import name,system, wait
+from .driver import driver,wait
+from .data import USERNAME,PASSWORD,course_list
+from os import name,system
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
-from driver import driver,wait
-from data import USERNAME,PASSWORD,course_list
+from selenium.webdriver.support.ui import WebDriverWait
 import time
 from math import ceil
 
