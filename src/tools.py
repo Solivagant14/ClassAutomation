@@ -1,7 +1,7 @@
 #some handy functions needed in the project
 
 from .driver import driver,wait
-from .data import USERNAME,PASSWORD,course_list
+from .data import USERNAME,PASSWORD,course_list,time_format
 from os import name,system
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
@@ -27,6 +27,7 @@ def logedin():						#opens the site if already logged in
 	try:
 		wait.until(ec.presence_of_element_located((By.XPATH, "//*[contains(@id,'course-list-course')]")))
 	except:
+		driver.maximize_window()
 		logedin()
 	scroll()
 
@@ -40,6 +41,7 @@ def login():						#opens the site and logs in
 	try:
 		wait.until(ec.presence_of_element_located((By.XPATH, "//*[contains(@id,'course-list-course')]")))
 	except:
+		driver.maximize_window()
 		logedin()
 	scroll()
 
@@ -56,3 +58,9 @@ def find(xpath):
         return element
     else:
         return False
+
+def timer(end):
+	while True:
+		current_time = time.strftime(time_format)
+		if current_time >= end:
+			break
