@@ -1,6 +1,6 @@
 #this file has the class which is the blue print for all the classes
 
-from .tools import logedin
+from .tools import logedin,timer
 from .driver import driver,wait
 from .data import CLASS_DURATION,LAB_DURATION,time_format
 from selenium.webdriver.common.by import By
@@ -65,10 +65,7 @@ class Course:
 
         end = (datetime.strptime(start,time_format) + timedelta(minutes=LAB_DURATION)).strftime(time_format) if 'Lab' in self.title else (datetime.strptime(start,time_format) + timedelta(minutes=CLASS_DURATION)).strftime(time_format)
 
-        while True:
-            current_time = time.strftime(time_format)
-            if current_time >= end:
-                break
+        timer(end)
 
         try:
             driver.close()
