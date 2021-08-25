@@ -17,15 +17,13 @@ for each in schedule.copy():        #changes the key of schedule to be instance 
     schedule[Course(each,course_list[each])] = schedule.pop(each)
 print("Class Automation Initiated\n")
 
-run_schedule()
-
-# while True:
-#     try:
-#         run_schedule()              #runs schedule
-#         break
-#     except KeyboardInterrupt:
-#         break
-#     except:
-#         run_schedule()
+while True:
+    try:
+        run_schedule()              #runs schedule
+        break
+    except KeyboardInterrupt:
+        break
+    except:
+        run_schedule()
         
 driver.close()

@@ -39,20 +39,18 @@ class Course:
                     time.sleep(5)
                     wait.until(ec.presence_of_element_located((By.XPATH, "//*[@id='techcheck-video-ok-button']"))).click()
                     break
-                except TimeoutException:
-                    driver.refresh
-                except StaleElementReferenceException:
+                except:
                     driver.refresh
             while True:                 #this deals with the tutorial announcement
                 try:
                     wait.until(ec.presence_of_element_located((By.XPATH, "//*[@id='announcement-modal-page-wrap']/div/div[4]/button"))).click()
                     time.sleep(2)
                     break
-                except TimeoutException:
+                except:
                     driver.refresh()
             try:
                 wait.until(ec.presence_of_element_located((By.XPATH, "//*[@id='tutorial-dialog-tutorials-menu-learn-about-tutorials-menu-close']"))).click()
-            except TimeoutException:
+            except:
                 driver.refresh()
 
         if 'Lab' in self.title:             #lab timer
