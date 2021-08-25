@@ -7,7 +7,7 @@ This project will do that automatically for you.
 
 ### **1.**  Download chromedriver
 
-Visit [chromedriver](https://chromedriver.chromium.org/downloads0) and download the chromedriver according to your Chrome Version and replace it with the chromedriver in **_/driver_**
+Visit [chromedriver](https://chromedriver.chromium.org/downloads) and download the chromedriver according to your Chrome Version and replace it with the chromedriver in **_/driver_**
 
 ### **2.** Install dependencies
 
