@@ -17,3 +17,5 @@ with open("./JSONfiles/durations.json", "r") as duration_file:  #reading the sto
     durations = json.load(duration_file)
     CLASS_DURATION = durations["class duration"]
     LAB_DURATION = durations["lab duration"]
+
+time_format="%H:%M"

@@ -2,10 +2,11 @@
 
 from .tools import logedin
 from .driver import driver,wait
-from .data import CLASS_DURATION,LAB_DURATION
+from .data import CLASS_DURATION,LAB_DURATION,time_format
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 import time
+from datetime import datetime,timedelta
 from selenium.common.exceptions import NoSuchWindowException,NoSuchElementException
 
 class Course:
@@ -62,16 +63,13 @@ class Course:
             except:
                 driver.refresh()
 
-        if 'Lab' in self.title:             #lab timer
-            while True:
-                if time.time() - start >= LAB_DURATION*60:
-                    break
-                time.sleep(1)
-        else:                               #normal class timer
-            while True:
-                if time.time() - start >= CLASS_DURATION*60:
-                    break
-                time.sleep(1)
+        end = (datetime.strptime(start,time_format) + timedelta(minutes=LAB_DURATION)).strftime(time_format) if 'Lab' in self.title else (datetime.strptime(start,time_format) + timedelta(minutes=CLASS_DURATION)).strftime(time_format)
+
+        while True:
+            current_time = time.strftime(time_format)
+            if current_time >= end:
+                break
+
         try:
             driver.close()
         except NoSuchWindowException:           #doesnot create an exception if the user has forcefully exited the class
