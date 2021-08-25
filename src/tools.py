@@ -58,3 +58,10 @@ def get_classes():					#extracts the available classes from the web page
 		course_list[title.get_attribute('title')] = course.get_attribute('id')
 
 	driver.minimize_window()
+
+def find(xpath):
+    element = driver.find_elements_by_xpath(xpath)
+    if element:
+        return element
+    else:
+        return False

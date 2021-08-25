@@ -6,7 +6,7 @@ from .data import CLASS_DURATION,LAB_DURATION
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 import time
-from selenium.common.exceptions import TimeoutException,NoSuchWindowException
+from selenium.common.exceptions import TimeoutException,NoSuchWindowException,StaleElementReferenceException
 
 class Course:
     def __init__(self,title,id):
@@ -30,6 +30,7 @@ class Course:
         session_tab = driver.window_handles[1]
 
         driver.switch_to_window(session_tab)                #switched to the session tab
+        print("Attending ",self.title)
 
         if first:
             while True:                 #this deals with the video and audio check
@@ -39,6 +40,8 @@ class Course:
                     wait.until(ec.presence_of_element_located((By.XPATH, "//*[@id='techcheck-video-ok-button']"))).click()
                     break
                 except TimeoutException:
+                    driver.refresh
+                except StaleElementReferenceException:
                     driver.refresh
             while True:                 #this deals with the tutorial announcement
                 try:

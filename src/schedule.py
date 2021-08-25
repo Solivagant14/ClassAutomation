@@ -20,7 +20,6 @@ def run_schedule():                                             #runs the schedu
         current_time = time.strftime("%H:%M")
         for course in schedule.copy():
             if schedule[course] <= current_time:
-                print("Attending ",course.title)
                 course.attend(first,time.time())
                 first = False       #flags down
                 del schedule[course]    #deletes the class from schedule from attended
