@@ -6,7 +6,7 @@ from .data import CLASS_DURATION,LAB_DURATION
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 import time
-from selenium.common.exceptions import TimeoutException,NoSuchWindowException,StaleElementReferenceException
+from selenium.common.exceptions import NoSuchWindowException,NoSuchElementException
 
 class Course:
     def __init__(self,title,id):
@@ -18,6 +18,15 @@ class Course:
         while True:
             try:
                 driver.find_element_by_id(self.id).click()                                                          #clicks the course
+                try:                                                                                                #checks if their is any notice and quits it
+                    driver.implicitly_wait(5)
+                    time.sleep(5)
+                    notice = driver.find_element_by_xpath("//*[contains(@class,'notice')]")
+                    title = notice.find_element_by_class_name("title-container")
+                    button = title.find_element_by_tag_name("button")
+                    button.click()
+                except NoSuchElementException:
+                    pass
                 wait.until(ec.presence_of_element_located((By.XPATH, "//*[@id='sessions-list-dropdown']/span")))
                 time.sleep(2)
                 driver.find_element_by_xpath("//*[@id='sessions-list-dropdown']/span").click()
