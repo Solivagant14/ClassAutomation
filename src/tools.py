@@ -15,6 +15,14 @@ def clear_screen():					#clears screen
     else:
         _ = system('clear')     # for mac and linux
 
+def scroll():
+	height = driver.get_window_size()['height']
+	main_content = driver.find_element_by_id("main-content-inner")
+	scroll_height = driver.execute_script("return arguments[0].scrollHeight",main_content)
+	for i in range(ceil(scroll_height/height)):
+		driver.execute_script(f"arguments[0].scrollBy(0,{height});",main_content) 
+		time.sleep(1)
+
 def login():						#opens the site and logs in 
 	driver.get("https://learn.upes.ac.in/")
 
@@ -27,25 +35,14 @@ def login():						#opens the site and logs in
 
 	wait.until(ec.presence_of_element_located((By.XPATH, "//*[contains(@id,'course-list-course')]")))
 
-	height = driver.get_window_size()['height']
-	main_content = driver.find_element_by_id("main-content-inner")
-	scroll_height = driver.execute_script("return arguments[0].scrollHeight",main_content)
-	for i in range(ceil(scroll_height/height)):
-		driver.execute_script(f"arguments[0].scrollBy(0,{height});",main_content) 
-		time.sleep(1)
+	scroll()
 
 def logedin():						#opens the site if already logged in
-	driver.maximize_window()
 	driver.get("https://learn.upes.ac.in/")
 
 	wait.until(ec.presence_of_element_located((By.XPATH, "//*[contains(@id,'course-list-course')]")))
 
-	height = driver.get_window_size()['height']
-	main_content = driver.find_element_by_id("main-content-inner")
-	scroll_height = driver.execute_script("return arguments[0].scrollHeight",main_content)
-	for i in range(ceil(scroll_height/height)):
-		driver.execute_script(f"arguments[0].scrollBy(0,{height});",main_content) 
-		time.sleep(1)
+	scroll()
 
 def get_classes():					#extracts the available classes from the web page
 
