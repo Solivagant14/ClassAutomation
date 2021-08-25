@@ -15,10 +15,10 @@ def get_schedule():                                             #gets schedule f
     for course in todays_courses:
         schedule[course] = ''
 
-    print('\nEnter the Schedule of the Classes in HH:MM\n')
+    print('{:-^120}\n'.format(' Enter the Schedule of the Classes in HH:MM '))
     for each in schedule:
         while not isTimeFormat(schedule[each]):
-            print(each,'\t-\t',end='')
+            print('{:<115}'.format(each),end='')
             schedule[each] = input()
     print('\n')
 

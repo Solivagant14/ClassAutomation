@@ -10,13 +10,12 @@ from src.driver import driver
 from src.data import course_list,schedule
 from src.course import Course
 from src.schedule import run_schedule
-from src.tools import login
+from src.tools import login,clear_screen
 
 login()                             #logs in
 for each in schedule.copy():        #changes the key of schedule to be instance of the class Course
     schedule[Course(each,course_list[each])] = schedule.pop(each)
+clear_screen()
 print("Class Automation Initiated\n")
-
 run_schedule()
-        
 driver.quit()
