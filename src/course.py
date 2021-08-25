@@ -1,11 +1,12 @@
 #this file has the class which is the blue print for all the classes
 
-from .tools import logedin,timer
+from .tools import logedin
 from .driver import driver,wait
 from .data import CLASS_DURATION,LAB_DURATION,time_format
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 import time
+import threading
 from datetime import datetime,timedelta
 from selenium.common.exceptions import NoSuchWindowException,NoSuchElementException
 
@@ -13,6 +14,20 @@ class Course:
     def __init__(self,title,id):
         self.title = title      #title of the class
         self.id = id            #id of the WebElement
+        self.flag = True
+
+    def timer(self,end):
+        while self.flag:
+            current_time = time.strftime(time_format)
+            if current_time >= end:
+                self.flag = False
+
+    def check_tab(self):
+        while self.flag:
+            try:
+                driver.window_handles[1]
+            except:
+                self.flag = False
 
     def attend(self,first,start):
         driver.maximize_window()
@@ -65,11 +80,12 @@ class Course:
 
         end = (datetime.strptime(start,time_format) + timedelta(minutes=LAB_DURATION)).strftime(time_format) if 'Lab' in self.title else (datetime.strptime(start,time_format) + timedelta(minutes=CLASS_DURATION)).strftime(time_format)
 
-        timer(end)
+        timer_thread = threading.Thread(target=self.timer, args=(end,))         #thread to check the timer
+        check_tab_thread = threading.Thread(target=self.check_tab)              #thread to check if the user has closed the class
+        timer_thread.start()
+        check_tab_thread.start()
 
-        try:
-            driver.close()
-        except NoSuchWindowException:           #doesnot create an exception if the user has forcefully exited the class
+        while self.flag:
             pass
 
         driver.switch_to_window(blackboard_tab)

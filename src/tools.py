@@ -58,9 +58,3 @@ def find(xpath):
         return element
     else:
         return False
-
-def timer(end):
-	while True:
-		current_time = time.strftime(time_format)
-		if current_time >= end:
-			break
