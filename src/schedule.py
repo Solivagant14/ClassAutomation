@@ -3,14 +3,23 @@
 from .data import todays_courses,schedule,time_format
 import time
 
+def isTimeFormat(input):
+    try:
+        time.strptime(input, '%H:%M')
+        return True
+    except ValueError:
+        return False
+
+
 def get_schedule():                                             #gets schedule from the user for today
     for course in todays_courses:
         schedule[course] = ''
 
     print('\nEnter the Schedule of the Classes in HH:MM\n')
     for each in schedule:
-        print(each,'\t-\t',end='')
-        schedule[each] = input()
+        while not isTimeFormat(schedule[each]):
+            print(each,'\t-\t',end='')
+            schedule[each] = input()
     print('\n')
 
 def run_schedule():                                             #runs the schedule for today
