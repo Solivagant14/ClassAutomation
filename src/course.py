@@ -1,6 +1,6 @@
 #this file has the class which is the blue print for all the classes
 
-from .tools import logedin
+from .tools import logedin,check_notice
 from .driver import driver,wait
 from .data import CLASS_DURATION,LAB_DURATION,time_format
 from selenium.webdriver.common.by import By
@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as ec
 import time
 import threading
 from datetime import datetime,timedelta
-from selenium.common.exceptions import NoSuchWindowException,NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException
 
 class Course:
     def __init__(self,title,id):
@@ -20,6 +20,7 @@ class Course:
         while self.flag:
             current_time = time.strftime(time_format)
             if current_time >= end:
+                driver.close()
                 self.flag = False
 
     def check_tab(self):
@@ -34,15 +35,7 @@ class Course:
         while True:
             try:
                 driver.find_element_by_id(self.id).click()                                                          #clicks the course
-                try:                                                                                                #checks if their is any notice and quits it
-                    driver.implicitly_wait(5)
-                    time.sleep(5)
-                    notice = driver.find_element_by_xpath("//*[contains(@class,'notice')]")
-                    title = notice.find_element_by_class_name("title-container")
-                    button = title.find_element_by_tag_name("button")
-                    button.click()
-                except NoSuchElementException:
-                    pass
+                check_notice()
                 wait.until(ec.presence_of_element_located((By.XPATH, "//*[@id='sessions-list-dropdown']/span")))
                 time.sleep(2)
                 driver.find_element_by_xpath("//*[@id='sessions-list-dropdown']/span").click()

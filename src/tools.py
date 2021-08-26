@@ -1,10 +1,11 @@
 #some handy functions needed in the project
 
 from .driver import driver,wait
-from .data import USERNAME,PASSWORD,course_list,time_format
+from .data import USERNAME,PASSWORD,course_list
 from os import name,system
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.common.exceptions import NoSuchElementException
 import time
 from math import ceil
 
@@ -22,22 +23,25 @@ def scroll():
 		driver.execute_script(f"arguments[0].scrollBy(0,{height});",main_content) 
 		time.sleep(1)
 
-def logedin():						#opens the site if already logged in
-	driver.get("https://learn.upes.ac.in/")
-	try:
+def logedin():
+	try:						#opens the site if already logged in
+		driver.get("https://learn.upes.ac.in/")
 		wait.until(ec.presence_of_element_located((By.XPATH, "//*[contains(@id,'course-list-course')]")))
 	except:
-		driver.maximize_window()
 		logedin()
 	scroll()
 
 def login():						#opens the site and logs in 
-	driver.get("https://learn.upes.ac.in/")
-	button = driver.find_element_by_id("agree_button")
-	button.click()
-	driver.find_element_by_id("user_id").send_keys(USERNAME)
-	driver.find_element_by_id("password").send_keys(PASSWORD)
-	driver.find_element_by_id("entry-login").click()
+	try:
+		driver.get("https://learn.upes.ac.in/")
+		button = driver.find_element_by_id("agree_button")
+		button.click()
+		driver.find_element_by_id("user_id").send_keys(USERNAME)
+		driver.find_element_by_id("password").send_keys(PASSWORD)
+		driver.find_element_by_id("entry-login").click()
+	except:
+		driver.maximize_window()
+		login()
 	try:
 		wait.until(ec.presence_of_element_located((By.XPATH, "//*[contains(@id,'course-list-course')]")))
 	except:
@@ -58,3 +62,14 @@ def find(xpath):
         return element
     else:
         return False
+
+def check_notice():                                                                                                #checks if their is any notice and quits it
+	try:
+		driver.implicitly_wait(2)
+		time.sleep(2)
+		notice = driver.find_element_by_xpath("//*[contains(@class,'notice')]")
+		title = notice.find_element_by_class_name("title-container")
+		button = title.find_element_by_tag_name("button")
+		button.click()
+	except NoSuchElementException:
+		pass
