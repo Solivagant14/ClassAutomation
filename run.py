@@ -1,6 +1,5 @@
 #the executable file
 
-import time
 from src.schedule import get_schedule
 from src.selection import get_todays_classes
 
@@ -21,14 +20,7 @@ def keys_to_instance():
     for each in schedule.copy():        #changes the key of schedule to be instance of the class Course
             schedule[Course(each,course_list[each])] = schedule.pop(each)
 
-while True:
-    try:
-        login()                 
-        keys_to_instance()
-        run_schedule()
-        driver.quit()
-        break
-    except WebDriverException:
-        #print("Oops! Reconnecting....", end='\r')
-        print(".")
-        time.sleep(2)
+login()                 
+keys_to_instance()
+run_schedule()
+driver.quit()
