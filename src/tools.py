@@ -1,6 +1,6 @@
 #some handy functions needed in the project
 
-from .driver import driver,wait
+from .driver import driver,wait10
 from .data import USERNAME,PASSWORD,course_list
 from os import name,system
 from selenium.webdriver.common.by import By
@@ -26,8 +26,10 @@ def scroll():
 def logedin():
 	try:						#opens the site if already logged in
 		driver.get("https://learn.upes.ac.in/")
-		wait.until(ec.presence_of_element_located((By.XPATH, "//*[contains(@id,'course-list-course')]")))
+		wait10.until(ec.presence_of_element_located((By.XPATH, "//*[contains(@id,'course-list-course')]")))
 	except:
+		driver.maximize_window()
+		time.sleep(2)
 		logedin()
 	scroll()
 
@@ -41,11 +43,14 @@ def login():						#opens the site and logs in
 		driver.find_element_by_id("entry-login").click()
 	except:
 		driver.maximize_window()
+		time.sleep(2)
 		login()
+
 	try:
-		wait.until(ec.presence_of_element_located((By.XPATH, "//*[contains(@id,'course-list-course')]")))
+		wait10.until(ec.presence_of_element_located((By.XPATH, "//*[contains(@id,'course-list-course')]")))
 	except:
 		driver.maximize_window()
+		time.sleep(2)
 		logedin()
 	scroll()
 

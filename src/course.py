@@ -1,7 +1,7 @@
 #this file has the class which is the blue print for all the classes
 
 from .tools import logedin,check_notice
-from .driver import driver,wait
+from .driver import driver,wait10,wait30
 from .data import CLASS_DURATION,LAB_DURATION,time_format
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
@@ -36,7 +36,7 @@ class Course:
             try:
                 driver.find_element_by_id(self.id).click()                                                          #clicks the course
                 check_notice()
-                wait.until(ec.presence_of_element_located((By.XPATH, "//*[@id='sessions-list-dropdown']/span")))
+                wait10.until(ec.presence_of_element_located((By.XPATH, "//*[@id='sessions-list-dropdown']/span")))
                 time.sleep(2)
                 driver.find_element_by_xpath("//*[@id='sessions-list-dropdown']/span").click()
                 driver.find_element_by_link_text("Course Room").click()                                             #clicks join session
@@ -53,21 +53,21 @@ class Course:
         if first:
             while True:                 #this deals with the video and audio check
                 try:
-                    wait.until(ec.presence_of_element_located((By.XPATH, "//*[@id='dialog-description-audio']/div[2]/button"))).click()
+                    wait10.until(ec.presence_of_element_located((By.XPATH, "//*[@id='dialog-description-audio']/div[2]/button"))).click()
                     time.sleep(5)
-                    wait.until(ec.presence_of_element_located((By.XPATH, "//*[@id='techcheck-video-ok-button']"))).click()
+                    wait10.until(ec.presence_of_element_located((By.XPATH, "//*[@id='techcheck-video-ok-button']"))).click()
                     break
                 except:
                     driver.refresh
             while True:                 #this deals with the tutorial announcement
                 try:
-                    wait.until(ec.presence_of_element_located((By.XPATH, "//*[@id='announcement-modal-page-wrap']/div/div[4]/button"))).click()
+                    wait30.until(ec.presence_of_element_located((By.XPATH, "//*[@id='announcement-modal-page-wrap']/div/div[4]/button"))).click()
                     time.sleep(2)
                     break
                 except:
                     driver.refresh()
             try:
-                wait.until(ec.presence_of_element_located((By.XPATH, "//*[@id='tutorial-dialog-tutorials-menu-learn-about-tutorials-menu-close']"))).click()
+                wait10.until(ec.presence_of_element_located((By.XPATH, "//*[@id='tutorial-dialog-tutorials-menu-learn-about-tutorials-menu-close']"))).click()
             except:
                 driver.refresh()
 
