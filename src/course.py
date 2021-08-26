@@ -8,7 +8,6 @@ from selenium.webdriver.support import expected_conditions as ec
 import time
 import threading
 from datetime import datetime,timedelta
-from selenium.common.exceptions import NoSuchElementException
 
 class Course:
     def __init__(self,title,id):
