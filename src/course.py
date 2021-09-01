@@ -5,6 +5,7 @@ from .driver import driver,wait10,wait30
 from .data import CLASS_DURATION,LAB_DURATION,time_format
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.common.exceptions import TimeoutException,NoSuchElementException
 import time
 import threading
 from datetime import datetime,timedelta
@@ -56,18 +57,18 @@ class Course:
                     time.sleep(5)
                     wait10.until(ec.presence_of_element_located((By.XPATH, "//*[@id='techcheck-video-ok-button']"))).click()
                     break
-                except:
+                except TimeoutException:
                     driver.refresh
             while True:                 #this deals with the tutorial announcement
                 try:
                     wait30.until(ec.presence_of_element_located((By.XPATH, "//*[@id='announcement-modal-page-wrap']/div/div[4]/button"))).click()
                     time.sleep(2)
                     break
-                except:
+                except TimeoutException:
                     driver.refresh()
             try:
                 wait10.until(ec.presence_of_element_located((By.XPATH, "//*[@id='tutorial-dialog-tutorials-menu-learn-about-tutorials-menu-close']"))).click()
-            except:
+            except TimeoutException:
                 driver.refresh()
 
         end = (datetime.strptime(start,time_format) + timedelta(minutes=LAB_DURATION)).strftime(time_format) if 'Lab' in self.title else (datetime.strptime(start,time_format) + timedelta(minutes=CLASS_DURATION)).strftime(time_format)
