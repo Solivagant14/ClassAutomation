@@ -1,6 +1,6 @@
 # ClassAutomation
 
-This is a project that help UPES students automating the whole day online classes on BlackBoard so that they don't have to go through the hassle of checking the schedule and then logging in and then clicking on attend.
+This is a project that help UPES students automating the whole day online classes on BlackBoard Ultra so that they don't have to go through the hassle of checking the schedule and then logging in throughout the day.
 This project will do that automatically for you.
 
 ## Requirements
@@ -13,4 +13,16 @@ Visit [chromedriver](https://chromedriver.chromium.org/downloads) and download t
 
 ```shell
 $ pip3 install -r requirements.txt
+```
+
+### **3.** Setup
+
+```shell
+$ python3 setup.py
+```
+
+### **3.** Run
+
+```shell
+$ python3 run.py
 ```
