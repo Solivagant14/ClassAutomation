@@ -1,12 +1,13 @@
 #all the fucntions used for command line selection
 
 from simple_term_menu import TerminalMenu
-from .data import todays_courses,course_dict
-def select_todays_classes():
+from .data import course_dict
+
+def select_semester_classes():
     
     terminal_menu = TerminalMenu(
         course_dict,
-        title="-------------------- Select Today's Classes --------------------",
+        title="-------------------- Select this Semester Classes --------------------",
         multi_select=True,
         show_multi_select_hint=True,
         multi_select_cursor_style=("fg_blue", "bold"),
@@ -17,6 +18,6 @@ def select_todays_classes():
     )
     terminal_menu.show()
     
-    for course in course_dict:
-        if course in terminal_menu.chosen_menu_entries:
-            todays_courses.append(course)
+    for course in course_dict.copy():
+        if course not in terminal_menu.chosen_menu_entries:
+            del course_dict[course]

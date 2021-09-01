@@ -1,7 +1,7 @@
 #some handy functions needed in the project
 
 from .driver import driver,wait10
-from .data import USERNAME,PASSWORD,course_list
+from .data import USERNAME,PASSWORD
 from os import name,system
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
@@ -19,7 +19,7 @@ def scroll():
 	height = driver.get_window_size()['height']
 	main_content = driver.find_element_by_id("main-content-inner")
 	scroll_height = driver.execute_script("return arguments[0].scrollHeight",main_content)
-	for i in range(ceil(scroll_height/height)):
+	for _ in range(ceil(scroll_height/height)):
 		driver.execute_script(f"arguments[0].scrollBy(0,{height});",main_content) 
 		time.sleep(1)
 
@@ -53,13 +53,6 @@ def login():						#opens the site and logs in
 		time.sleep(2)
 		logedin()
 	scroll()
-
-def get_classes():					#extracts the available classes from the web page
-	login()
-	courses = driver.find_elements_by_xpath("//*[contains(@id,'course-link-')]")
-	for course in courses:
-		title = course.find_element_by_tag_name("h4")
-		course_list[title.get_attribute('title')] = course.get_attribute('id')
 
 def find(xpath):
     element = driver.find_elements_by_xpath(xpath)
