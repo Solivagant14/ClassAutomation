@@ -9,9 +9,9 @@ if name == 'nt':
         course_variable = dict()
 
         def submit():
-            for course in course_dict():
-                if course_variable[course].get() == 1:
-                    todays_courses.append(course)
+            for key in course_dict.copy():
+                if course_variable[key].get() == 1:
+                    todays_courses.append(key)
             root.destroy()
 
         for course in course_dict:
