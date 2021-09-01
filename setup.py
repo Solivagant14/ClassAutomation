@@ -9,7 +9,7 @@ if __name__ == "__main__":
     with open("./JSONfiles/login.json", "w") as login_json:                          #stores the login details to a json file
         json.dump(login_dict,login_json,indent=4)
 
-from stp.tools import get_classes,clear_screen, login
+from stp.tools import login,get_classes,clear_screen
 from stp.selection import select_semester_classes
 from stp.driver import driver
 
