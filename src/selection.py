@@ -1,7 +1,7 @@
 from os import name
 from .data import course_dict,todays_courses
 
-if name == 'nt':
+if name == 'nt':                                                #tkinter for Windows
     from tkinter import Tk,IntVar,Checkbutton,Button,TOP,W
     
     def select_todays_classes():
@@ -23,7 +23,7 @@ if name == 'nt':
 
         root.mainloop()
 
-else:
+else:                                                           #simple term menu for linux and mac
     from simple_term_menu import TerminalMenu
     def select_todays_classes():
         
