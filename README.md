@@ -14,3 +14,15 @@ Visit [chromedriver](https://chromedriver.chromium.org/downloads) and download t
 ```shell
 $ pip3 install -r requirements.txt
 ```
+
+### **3.** Setup
+
+```shell
+$ python3 setup.py
+```
+
+### **3.** Run
+
+```shell
+$ python3 run.py
+```
