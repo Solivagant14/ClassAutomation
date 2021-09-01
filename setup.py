@@ -20,7 +20,7 @@ if __name__ == "__main__":
         select_semester_classes()
         with open("./JSONfiles/courselist.json", "w") as courselist:            #stored the courselist details to a json file
             json.dump(course_dict, courselist, indent=4)
-        
+        clear_screen()
         print("Duration you want to attend in minutes (Ex. : 60)")
         duration["class duration"] = int(input("Class Duration : "))
         duration["lab duration"] = int(input("Lab Duration   : "))

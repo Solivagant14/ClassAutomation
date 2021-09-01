@@ -2,7 +2,7 @@ from os import name
 from .data import course_dict,todays_courses
 
 if name == 'nt':                                                #tkinter for Windows
-    from tkinter import Tk,IntVar,Checkbutton,Button,TOP,W
+    from tkinter import Tk,IntVar,Checkbutton,Button,Label,TOP,W
     
     def select_todays_classes():
         root = Tk()
@@ -13,13 +13,16 @@ if name == 'nt':                                                #tkinter for Win
                 if course_variable[key].get() == 1:
                     todays_courses.append(key)
             root.destroy()
+        
+        label = Label(root, text="Select the Classes you need this Semester")
+        label.pack(pady=10)
 
         for course in course_dict:
             course_variable[course] = IntVar()
             l = Checkbutton(root, text=course, variable=course_variable[course] )
-            l.pack(side=TOP, anchor=W)
+            l.pack(pady=2, side=TOP, anchor=W)
         submit = Button(root,text="Submit",command=submit)
-        submit.pack()
+        submit.pack(pady=10)
 
         root.mainloop()
 
